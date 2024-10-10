@@ -1,0 +1,35 @@
+<div class="formulario">
+    <form [formGroup]="zodiacoForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label>Nombre:</label>
+        <input formControlName="nombre" type="text">
+      </div>
+      <div>
+        <label>Apellido Paterno:</label>
+        <input formControlName="apaterno" type="text">
+      </div>
+      <div>
+        <label>Apellido Materno:</label>
+        <input formControlName="amaterno" type="text">
+      </div>
+      <div>
+        <label>Fecha de nacimiento:</label>
+        <input formControlName="dia" type="number" placeholder="Día" min="1" max="31">
+        <input formControlName="mes" type="number" placeholder="Mes" min="1" max="12">
+        <input formControlName="anio" type="number" placeholder="Año" min="1900" [max]="currentYear">
+      </div>
+      <div>
+        <label>Sexo:</label>
+        <input type="radio" formControlName="sexo" value="Masculino"> Masculino
+        <input type="radio" formControlName="sexo" value="Femenino"> Femenino
+      </div>
+      <button type="button" (click)="onSubmit()">Imprimir</button>
+    </form>
+</div>
+
+<div *ngIf="zodiacoForm.valid">
+    <h2>Hola {{ zodiacoForm.get('nombre')?.value }} {{ zodiacoForm.get('apaterno')?.value }} {{ zodiacoForm.get('amaterno')?.value }}</h2>
+    <p>Tienes {{ edad }} años</p>
+    <p>Tu signo zodiacal es: {{ signoZodiacal }}</p>
+    <p>Tu signo chino es: {{ signoChino }}</p>
+</div>
