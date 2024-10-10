@@ -10,6 +10,7 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 })
 export class ZodiacoComponent {
   zodiacoForm: FormGroup;
+  
   edad: number = 0;
   signoZodiacal: string = '';
   signoChino: string = '';
