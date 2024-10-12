@@ -1,35 +1,72 @@
-<div class="formulario">
-    <form [formGroup]="zodiacoForm" (ngSubmit)="onSubmit()">
+<div class="formulario max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
+  <form [formGroup]="zodiacoForm" (ngSubmit)="onSubmit()" class="space-y-4">
+    <div class="relative z-0 w-full group">
+      <label class="block text-sm font-medium text-gray-700">Nombre :</label>
+      <input formControlName="nombre" type="text" class="block w-full py-2.5 px-4 mt-1 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Ingresa tu nombre">
+    </div>
+
+    <div class="relative z-0 w-full group">
+      <label class="block text-sm font-medium text-gray-700">Apellido Paterno:</label>
+      <input formControlName="apaterno" type="text" class="block w-full py-2.5 px-4 mt-1 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Ingresa tu apellido paterno">
+    </div>
+
+    <div class="relative z-0 w-full group">
+      <label class="block text-sm font-medium text-gray-700">Apellido Materno:</label>
+      <input formControlName="amaterno" type="text" class="block w-full py-2.5 px-4 mt-1 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Ingresa tu apellido materno">
+    </div>
+
+    <div class="relative z-0 w-full group grid grid-cols-3 gap-4">
       <div>
-        <label>Nombre :</label>
-        <input formControlName="nombre" type="text">
+        <label class="block text-sm font-medium text-gray-700">Día:</label>
+        <input formControlName="dia" type="number" placeholder="Día" min="1" max="31" class="block w-full py-2.5 px-4 mt-1 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
       </div>
       <div>
-        <label>Apellido Paterno:</label>
-        <input formControlName="apaterno" type="text">
+        <label class="block text-sm font-medium text-gray-700">Mes:</label>
+        <input formControlName="mes" type="number" placeholder="Mes" min="1" max="12" class="block w-full py-2.5 px-4 mt-1 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
       </div>
       <div>
-        <label>Apellido Materno:</label>
-        <input formControlName="amaterno" type="text">
+        <label class="block text-sm font-medium text-gray-700">Año:</label>
+        <input formControlName="anio" type="number" placeholder="Año" min="1900" [max]="currentYear" class="block w-full py-2.5 px-4 mt-1 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
       </div>
-      <div>
-        <label>Fecha de nacimiento:</label>
-        <input formControlName="dia" type="number" placeholder="Día" min="1" max="31">
-        <input formControlName="mes" type="number" placeholder="Mes" min="1" max="12">
-        <input formControlName="anio" type="number" placeholder="Año" min="1900" [max]="currentYear">
+    </div>
+
+    <div class="relative z-0 w-full group">
+      <label class="block text-sm font-medium text-gray-700">Sexo:</label>
+      <div class="flex items-center space-x-4">
+        <div class="flex items-center">
+          <input type="radio" formControlName="sexo" value="Masculino" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+          <label class="ml-2 text-sm font-medium text-gray-700">Masculino</label>
+        </div>
+        <div class="flex items-center">
+          <input type="radio" formControlName="sexo" value="Femenino" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+          <label class="ml-2 text-sm font-medium text-gray-700">Femenino</label>
+        </div>
       </div>
-      <div>
-        <label>Sexo:</label>
-        <input type="radio" formControlName="sexo" value="Masculino"> Masculino
-        <input type="radio" formControlName="sexo" value="Femenino"> Femenino
-      </div>
-      <button type="button" (click)="onSubmit()">Imprimir</button>
-    </form>
+    </div>
+
+    <button type="button" (click)="onSubmit()" class="block w-full bg-blue-600 text-white font-medium py-2.5 rounded-lg text-sm hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">Imprimir</button>
+  </form>
 </div>
 
-<div *ngIf="zodiacoForm.valid">
-    <h2>Hola {{ zodiacoForm.get('nombre')?.value }} {{ zodiacoForm.get('apaterno')?.value }} {{ zodiacoForm.get('amaterno')?.value }}</h2>
-    <p>Tienes {{ edad }} años</p>
-    <p>Tu signo zodiacal es: {{ signoZodiacal }}</p>
-    <p>Tu signo chino es: {{ signoChino }}</p>
+<div *ngIf="zodiacoForm.valid" class="mt-6 bg-white shadow-md rounded-lg p-6">
+  <h2 class="text-xl font-bold text-gray-900">Hola {{ zodiacoForm.get('nombre')?.value }} {{ zodiacoForm.get('apaterno')?.value }} {{ zodiacoForm.get('amaterno')?.value }}</h2>
+  <p class="mt-2 text-gray-700">Tienes {{ edad }} años</p>
+  <p class="mt-2 text-gray-700">Tu signo zodiacal es: {{ signoZodiacal }}</p>
+  <p class="mt-2 text-gray-700">Tu signo chino es: {{ signoChino }}</p>
+
+  <div *ngIf="signoChino">
+    <img *ngIf="signoChino == 'Rata'" src="https://c.files.bbci.co.uk/185AC/production/_98065799_463ebdce-bddb-4485-a0ff-1dccc87b6a22.jpg" alt="Signo de la Rata" class="w-24 h-24 mx-auto mt-4">
+    <img *ngIf="signoChino == 'Buey'" src="https://peopleenespanol.com/thmb/ia0u33jxk7_bfFTLf1viDW9j5LA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/horoscopo-chino-buey-de-metal-2021-e93c7ebe89ab4c0daa8704d6e4a827dd.png" alt="Signo del Buey" class="w-24 h-24 mx-auto mt-4">
+    <img *ngIf="signoChino == 'Tigre'" src="https://media.istockphoto.com/id/1346341844/es/vector/a%C3%B1o-nuevo-tiger-paperart.jpg?s=612x612&w=0&k=20&c=gWSm2OZ8DIcbX3G5aTbUd48NVQtKeJFd9pW5fl9SeeY=" alt="Signo del Tigre" class="w-24 h-24 mx-auto mt-4">
+    <img *ngIf="signoChino == 'Conejo'" src="https://resizer.glanacion.com/resizer/v2/los-secretos-de-bugs-bunny-el-conejo-irreverente-43L5R2XZNZE3VOA62Q3BRSV6MU.jpg?auth=a72ef0fc92046af6fcbe5643c03b3eb7ff84f658ed416cbcc7a44780b92bfdc8&width=768&quality=70&smart=false" alt="Signo del Conejo" class="w-24 h-24 mx-auto mt-4">
+    <img *ngIf="signoChino == 'Dragón'" src="https://elcomercio.pe/resizer/xxsN__44AHaor2vvb-A5wlkoubw=/620x0/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/DRPAZEHXHFG6PJBGTV5OQJTT6U.jpg" alt="Signo del Dragón" class="w-24 h-24 mx-auto mt-4">
+    <img *ngIf="signoChino == 'Serpiente'" src="https://elcomercio.pe/resizer/rtWEAH8KcDXUXJUSh-ZvkYxmDME=/1200x1200/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/ZVVXBNRHNRHVLM65TV6C77I2B4.jpg" alt="Signo de la Serpiente" class="w-24 h-24 mx-auto mt-4">
+    <img *ngIf="signoChino == 'Caballo'" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqCRAsdMmLP5Hb_Wji0xtFwKWnLG03wJWpLg&s" alt="Signo del Caballo" class="w-24 h-24 mx-auto mt-4">
+    <img *ngIf="signoChino == 'Cabra'" src="https://peopleenespanol.com/thmb/Fwy99mIonHJYbhmA9AOTeWCpkdU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Horoscopo-chino-165967741-2000-12afb4d370f14afe856f05ba36fe1693.jpg" alt="Signo de la Cabra" class="w-24 h-24 mx-auto mt-4">
+    <img *ngIf="signoChino == 'Mono'" src="https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Mono.jpg" alt="Signo del Mono" class="w-24 h-24 mx-auto mt-4">
+    <img *ngIf="signoChino == 'Gallo'" src="https://elcomercio.pe/resizer/O57UoxRSqogpihz7g2FRqLZogOk=/980x528/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/CT2SCDITWRGYVIXHOJNQUIBEOE.jpg" alt="Signo del Gallo" class="w-24 h-24 mx-auto mt-4">
+    <img *ngIf="signoChino == 'Perro'" src="https://elcomercio.pe/resizer/MBcwbrOzmEXROrVRbRgzovW3LdU=/1200x1200/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/IVY437GEG5FFZDN2QX5GILFQFQ.jpg" alt="Signo del Perro" class="w-24 h-24 mx-auto mt-4">
+    <img *ngIf="signoChino == 'Cerdo'" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2yjeI4eW86L2gz5HrUe49WlBoGxUTpkwLqA&s" alt="Signo del Cerdo" class="w-24 h-24 mx-auto mt-4">
+
+  </div>
 </div>
