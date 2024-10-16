@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './zodiaco.component.html',
   styleUrl: './zodiaco.component.css'
 })
-export class ZodiacoComponent {
+export default class ZodiacoComponent {
   zodiacoForm: FormGroup;
   
   edad: number = 0;
