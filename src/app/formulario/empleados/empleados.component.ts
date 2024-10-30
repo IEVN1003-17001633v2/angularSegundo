@@ -97,6 +97,8 @@ export default class RegistroEmpleadosComponent {
   }
   
 
+  
+
   eliminarEmpleado(matricula: string): void {
     console.log(`Eliminando empleado con matrícula: ${matricula}`);
     this.empleados = this.empleados.filter((emp) => emp.matricula !== matricula);
