@@ -1,0 +1,84 @@
+<div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-6">Registro de empleados</h2>
+
+  <form [formGroup]="formGroup" class="grid grid-cols-2 gap-6 mb-6">
+    <div>
+      <label for="matricula" class="block text-sm font-bold mb-2">Matrícula</label>
+      <input id="matricula" type="text" formControlName="matricula" placeholder="Ingresa matrícula" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline">
+    </div>
+
+    <div>
+      <label for="nombre" class="block text-sm font-bold mb-2">Nombre</label>
+      <input id="nombre" type="text" formControlName="nombre" placeholder="Ingresa nombre" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline">
+    </div>
+
+    <div>
+      <label for="correo" class="block text-sm font-bold mb-2">Correo</label>
+      <input id="correo" type="email" formControlName="correo" placeholder="Ingresa correo" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline">
+    </div>
+
+    <div>
+      <label for="edad" class="block text-sm font-bold mb-2">Edad</label>
+      <input id="edad" type="number" formControlName="edad" placeholder="Ingresa edad" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline">
+    </div>
+
+    <div class="col-span-2">
+      <label for="horas" class="block text-sm font-bold mb-2">Horas trabajadas</label>
+      <input id="horas" type="number" formControlName="horasTrabajadas" placeholder="Ingresa horas trabajadas" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline">
+    </div>
+
+    <div class="col-span-2">
+      <!-- Botón con evento (click) para registrar empleado -->
+      <button type="button" (click)="registrarEmpleado()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        Registrar
+      </button>
+    </div>
+  </form>
+
+  <h2 class="text-2xl font-bold mb-4">Empleados Registrados</h2>
+  
+  
+  <button (click)="imprimirTabla()" class="mb-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+    Imprimir Tabla
+  </button>
+</div>
+<div>
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">Matrícula</th>
+          <th scope="col" class="px-6 py-3">Nombre</th>
+          <th scope="col" class="px-6 py-3">Correo</th>
+          <th scope="col" class="px-6 py-3">Edad</th>
+          <th scope="col" class="px-6 py-3">Horas trabajadas</th>
+          <th scope="col" class="px-6 py-3">Horas x Pagar</th>
+          <th scope="col" class="px-6 py-3">Horas extras</th>
+          <th scope="col" class="px-6 py-3">SubTotal</th>
+          <th scope="col" class="px-6 py-3">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let empleado of empleados" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ empleado.matricula }}</td>
+          <td class="px-6 py-4">{{ empleado.nombre }}</td>
+          <td class="px-6 py-4">{{ empleado.correo }}</td>
+          <td class="px-6 py-4">{{ empleado.edad }}</td>
+          <td class="px-6 py-4">{{ empleado.horasTrabajadas }}</td>
+          <td class="px-6 py-4">{{ ((empleado.horasTrabajadas)-(empleado.horasExtras))*70 }}</td>
+          <td class="px-6 py-4">{{ empleado.horasExtras*140 }}</td>
+          <td class="px-6 py-4">{{ empleado.subTotal | currency }}</td>
+          <td class="px-6 py-4">
+            <button (click)="eliminarEmpleado(empleado.matricula)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Eliminar</button>
+            <button (click)="modificarEmpleado(empleado.matricula)" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Modificar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  
+</div>
+  <div class="mt-4">
+    <h2 class="text-xl font-bold">Total a Pagar: <span class="text-red-500">{{ totalAPagar }}</span></h2>
+  </div>

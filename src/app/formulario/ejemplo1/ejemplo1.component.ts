@@ -43,8 +43,8 @@ export default class Ejemplo1Component implements OnInit{
 
   onSubmit():void{
 
-    /* localStorage.setItem('nombre', this.nombre)
- */
+    /* localStorage.setItem('nombre', this.nombre) */
+    
     const{nombre,edad,email}=this.formGroup.value;
 
     this.persona.nombre=nombre;
